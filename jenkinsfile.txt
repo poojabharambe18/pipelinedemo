@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven_home' 
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/poojabharambe18/pipelinedemo.git'
+            }
+        }
+
+        stage('Compile Code') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Create Build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+
+    post {
+        failure {
+            emailext body: 'jenkins build failed', subject: 'jenkins build failed', to: 'poojabharambe06@gmail.com'
+                echo 'email sent for jenkins build failed'
+        }
+    }
+}
