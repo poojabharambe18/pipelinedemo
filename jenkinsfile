@@ -1,8 +1,9 @@
 pipeline {
-    agent any
-
-    tools {
-        maven 'maven_home' 
+    agent {
+        label 'jenkinswagent'
+        tools {
+            maven 'maven_home' 
+        }
     }
 
     stages {
@@ -34,7 +35,7 @@ pipeline {
     post {
         failure {
             emailext body: 'jenkins build failed', subject: 'jenkins build failed', to: 'poojabharambe06@gmail.com'
-                echo 'email sent for jenkins build failed'
+            echo 'email sent for jenkins build failed'
         }
     }
 }
