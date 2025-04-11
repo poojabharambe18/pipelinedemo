@@ -1,9 +1,10 @@
 pipeline {
     agent {
         label 'jenkinswagent'
-        tools {
-            maven 'maven_home' 
-        }
+    }
+
+    tools {
+        maven 'maven_home'
     }
 
     stages {
